@@ -1,17 +1,26 @@
-# Verwende ein offizielles Node.js-Image als Basis
-FROM node:14
+# Basis-Image verwenden
+FROM node:18-alpine
 
-# Setze das Arbeitsverzeichnis innerhalb des Containers
+# Arbeitsverzeichnis erstellen
 WORKDIR /app
 
-# Kopiere die package.json und package-lock.json in den Container
-COPY package.json package-lock.json ./FF
+# Verzeichnis /app/dist erstellen
+RUN mkdir /app/dist
 
-# Kopiere den kompilierten JavaScript-Code in den Container
-COPY dist/ ./
+# Abhängigkeiten kopieren
+COPY package*.json ./
 
-# Exponiere den Port, auf dem der Express-Server laufen wird
+# Abhängigkeiten installieren
+RUN npm install
+
+# Quellcode kopieren
+COPY . .
+
+# TypeScript-Quellcode kompilieren
+RUN npm run build
+
+# Port freigeben
 EXPOSE 3001
 
-# Starte den Express-Server im Container
-CMD ["node", "index.js"]
+# Express-Server starten
+CMD ["node", "dist/index.js"]
