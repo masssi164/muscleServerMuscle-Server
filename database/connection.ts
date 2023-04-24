@@ -44,6 +44,7 @@ async function dbStart() {
 }
 
 export {
+    Connection,
     Muscle,
     dbStart
 }
