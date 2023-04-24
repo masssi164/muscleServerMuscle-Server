@@ -1,4 +1,4 @@
-import {Router} from 'express'
+import {Router, Request, Response }   from 'express'
 import { Muscle } from '../database/connection'
 import DbHandler, { MuscleStruct } from '../controler/DbHandler'
 import compareMuscles, { MuscleComparisonResult } from '../src/comparingMuscles'
@@ -78,6 +78,27 @@ router.post("/compareTwoCards", async (req,res) => {
         res.json(error)
     }
 
+})
+
+interface RegisterRequest {
+  name: string;
+  password: string;
+}
+
+router.post("/register", (req: Request<{}, {}, RegisterRequest>, res: Response) => {
+  const { name, password } = req.body;
+
+  Player.create({
+    name,
+    password
+  })
+    .then(player => {
+      res.status(201).send(`Player ${player.name} created`);
+    })
+    .catch(err => {
+      console.error(err);
+      res.status(500).send('Error creating player');
+    });
 })
 
 
