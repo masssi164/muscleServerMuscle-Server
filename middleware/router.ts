@@ -2,6 +2,7 @@ import {Router, Request, Response }   from 'express'
 import { Muscle } from '../database/connection'
 import DbHandler, { MuscleStruct } from '../controler/DbHandler'
 import compareMuscles, { MuscleComparisonResult } from '../src/comparingMuscles'
+import Player from "../database/player"
 const router =Router()
 
 
@@ -85,6 +86,9 @@ interface RegisterRequest {
   password: string;
 }
 
+<<<<<<< HEAD
+
+=======
 router.post("/register", (req: Request<{}, {}, RegisterRequest>, res: Response) => {
   const { name, password } = req.body;
 
