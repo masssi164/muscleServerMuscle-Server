@@ -86,9 +86,7 @@ interface RegisterRequest {
   password: string;
 }
 
-<<<<<<< HEAD
 
-=======
 router.post("/register", (req: Request<{}, {}, RegisterRequest>, res: Response) => {
   const { name, password } = req.body;
 
